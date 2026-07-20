@@ -43,7 +43,7 @@ También se puede utilizar MongoDB Compass para visualizar la base de datos.
 Clonar el repositorio:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/TU_USUARIO/backendstore.git
 ```
 
 Entrar en la carpeta del proyecto:
