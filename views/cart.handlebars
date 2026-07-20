@@ -1,0 +1,111 @@
+<h1>Carrito de compras</h1>
+
+<p>ID del carrito: {{cart._id}}</p>
+
+{{#if products.length}}
+  <ul>
+    {{#each products}}
+      <li>
+        <h2>{{this.product.title}}</h2>
+
+        <p>{{this.product.description}}</p>
+
+        <p>Precio unitario: ${{this.product.price}}</p>
+
+        <p>Cantidad: {{this.quantity}}</p>
+
+        <p>Categoría: {{this.product.category}}</p>
+
+        <button
+          class="delete-product-button"
+          data-product-id="{{this.product._id}}"
+        >
+          Eliminar del carrito
+        </button>
+      </li>
+    {{/each}}
+  </ul>
+
+  <button id="clear-cart-button">
+    Vaciar carrito
+  </button>
+{{else}}
+  <p>El carrito está vacío.</p>
+{{/if}}
+
+<p id="cart-message"></p>
+
+<script>
+  const cartId = "{{cart._id}}";
+  const message = document.getElementById("cart-message");
+
+  const deleteButtons = document.querySelectorAll(
+    ".delete-product-button"
+  );
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const productId = button.dataset.productId;
+
+      try {
+        const response = await fetch(
+          `/api/carts/${cartId}/products/${productId}`,
+          {
+            method: "DELETE"
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          message.textContent =
+            result.error || "No se pudo eliminar el producto";
+
+          return;
+        }
+
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+
+        message.textContent =
+          "Error al conectar con el servidor";
+      }
+    });
+  });
+
+  const clearCartButton = document.getElementById(
+    "clear-cart-button"
+  );
+
+  if (clearCartButton) {
+    clearCartButton.addEventListener("click", async () => {
+      try {
+        const response = await fetch(
+          `/api/carts/${cartId}`,
+          {
+            method: "DELETE"
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          message.textContent =
+            result.error || "No se pudo vaciar el carrito";
+
+          return;
+        }
+
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+
+        message.textContent =
+          "Error al conectar con el servidor";
+      }
+    });
+  }
+</script>
+
+<a href="/products">Volver a productos</a>

@@ -1,0 +1,31 @@
+<h1>Productos en tiempo real</h1>
+
+<ul id="products-list">
+  {{#each products}}
+    <li>
+      <strong>{{this.title}}</strong>
+      - ${{this.price}}
+      - Stock: {{this.stock}}
+    </li>
+  {{/each}}
+</ul>
+
+<script>
+  socket.on("productsUpdated", (products) => {
+    const productsList = document.getElementById("products-list");
+
+    productsList.innerHTML = "";
+
+    products.forEach((product) => {
+      const item = document.createElement("li");
+
+      item.innerHTML = `
+        <strong>${product.title}</strong>
+        - $${product.price}
+        - Stock: ${product.stock}
+      `;
+
+      productsList.appendChild(item);
+    });
+  });
+</script>

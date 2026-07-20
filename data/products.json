@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "Mate",
+    "price": 5000
+  },
+  {
+    "id": 3,
+    "title": "Bombilla",
+    "price": 3000
+  },
+  {
+    "id": 4,
+    "title": "Yerbera",
+    "price": 4500
+  },
+  {
+    "id": 5,
+    "title": "Mate camionero",
+    "description": "Mate de acero inoxidable",
+    "code": "MAT002",
+    "price": 6500,
+    "stock": 15,
+    "category": "Mates",
+    "status": true,
+    "thumbnails": []
+  },
+  {
+    "id": 6,
+    "title": "Mate prueba",
+    "description": "Producto válido",
+    "code": "TEST005",
+    "price": 5000,
+    "stock": 10,
+    "category": "Pruebas",
+    "status": true,
+    "thumbnails": [
+      "imagen.jpg"
+    ]
+  }
+]

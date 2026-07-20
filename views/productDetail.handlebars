@@ -1,0 +1,86 @@
+<h1>{{product.title}}</h1>
+
+<p>{{product.description}}</p>
+
+<p>Precio: ${{product.price}}</p>
+
+<p>Stock: {{product.stock}}</p>
+
+<p>Categoría: {{product.category}}</p>
+
+<p>
+  Estado general:
+  {{#if product.status}}
+    Activo
+  {{else}}
+    Inactivo
+  {{/if}}
+</p>
+
+<p>
+  Disponibilidad:
+  {{#if product.stock}}
+    Con stock
+  {{else}}
+    Sin stock
+  {{/if}}
+</p>
+
+<hr>
+
+<h2>Agregar al carrito</h2>
+
+<form id="add-to-cart-form">
+  <input
+    type="text"
+    id="cart-id"
+    placeholder="Ingresá el ID del carrito"
+    required
+  >
+
+  <button type="submit">
+    Agregar al carrito
+  </button>
+</form>
+
+<p id="cart-message"></p>
+
+<script>
+  const form = document.getElementById("add-to-cart-form");
+  const message = document.getElementById("cart-message");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const cartId = document.getElementById("cart-id").value.trim();
+    const productId = "{{product._id}}";
+
+    try {
+      const response = await fetch(
+        `/api/carts/${cartId}/products/${productId}`,
+        {
+          method: "POST"
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        message.textContent =
+          result.error || "No se pudo agregar el producto";
+
+        return;
+      }
+
+      message.textContent =
+        "Producto agregado correctamente al carrito";
+    } catch (error) {
+      console.error(error);
+
+      message.textContent =
+        "Error al conectar con el servidor";
+    }
+  });
+</script>
+
+<a href="/products">Volver a productos</a>
