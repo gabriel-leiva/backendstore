@@ -1,14 +1,14 @@
 {
   "name": "backendstore",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST de e-commerce con productos, carritos, MongoDB, Handlebars y Socket.IO",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gabriel Leiva",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

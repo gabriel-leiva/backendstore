@@ -8,6 +8,13 @@ const router = express.Router();
 const productManager = new ProductMongoManager();
 const cartManager = new CartMongoManager();
 
+router.get(["/", "/home"], (req, res) => {
+  res.render("home", {
+    title: "Backend Store",
+    message: "Bienvenido a Backend Store"
+  });
+});
+
 router.get("/products/:pid", async (req, res) => {
   try {
     const productId = req.params.pid;
@@ -35,12 +42,34 @@ router.get("/products/:pid", async (req, res) => {
 
 router.get("/products", async (req, res) => {
   try {
+    const limit = Number(req.query.limit) || 10;
+    const page = Number(req.query.page) || 1;
+    const query = req.query.query;
+    const sort = req.query.sort;
+
     const result = await productManager.getProducts({
-      limit: Number(req.query.limit) || 10,
-      page: Number(req.query.page) || 1,
-      query: req.query.query,
-      sort: req.query.sort
+      limit,
+      page,
+      query,
+      sort
     });
+
+    const buildLink = (targetPage) => {
+      const params = new URLSearchParams();
+
+      params.set("limit", limit);
+      params.set("page", targetPage);
+
+      if (query) {
+        params.set("query", query);
+      }
+
+      if (sort) {
+        params.set("sort", sort);
+      }
+
+      return `/products?${params.toString()}`;
+    };
 
     res.render("products", {
       title: "Productos",
@@ -49,8 +78,12 @@ router.get("/products", async (req, res) => {
       totalPages: result.totalPages,
       hasPrevPage: result.hasPrevPage,
       hasNextPage: result.hasNextPage,
-      prevPage: result.prevPage,
-      nextPage: result.nextPage
+      prevLink: result.hasPrevPage
+        ? buildLink(result.prevPage)
+        : null,
+      nextLink: result.hasNextPage
+        ? buildLink(result.nextPage)
+        : null
     });
   } catch (error) {
     console.error("Error al renderizar productos:", error);

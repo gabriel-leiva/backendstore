@@ -13,6 +13,7 @@ class ProductMongoManager {
 
     if (query) {
       if (query === "available") {
+        filter.status = true;
         filter.stock = { $gt: 0 };
       } else {
         filter.category = query;

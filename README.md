@@ -26,7 +26,6 @@ La aplicación implementa una API REST para administrar productos y carritos de 
 - Socket.IO
 - dotenv
 - mongoose-paginate-v2
-- Nodemon
 
 ## Requisitos previos
 
@@ -43,7 +42,7 @@ También se puede utilizar MongoDB Compass para visualizar la base de datos.
 Clonar el repositorio:
 
 ```bash
-git clone https://github.com/TU_USUARIO/backendstore.git
+git clone https://github.com/gabriel-leiva/backendstore.git
 ```
 
 Entrar en la carpeta del proyecto:
@@ -79,11 +78,12 @@ Para iniciar el proyecto normalmente:
 npm start
 ```
 
-Para iniciar el proyecto en modo desarrollo con Nodemon:
+Para iniciar el proyecto en modo desarrollo con reinicio automático:
 
 ```bash
 npm run dev
 ```
+El script de desarrollo utiliza `node --watch` para reiniciar automáticamente el servidor cuando se modifican archivos.
 
 La aplicación se ejecuta en:
 

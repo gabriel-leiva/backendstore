@@ -18,14 +18,14 @@
   <p>No hay productos disponibles.</p>
 {{/if}}
 
-<div>
+<nav>
   {{#if hasPrevPage}}
-    <a href="/products?page={{prevPage}}">Página anterior</a>
+    <a href="{{prevLink}}">Página anterior</a>
   {{/if}}
 
   <span>Página {{page}} de {{totalPages}}</span>
 
   {{#if hasNextPage}}
-    <a href="/products?page={{nextPage}}">Página siguiente</a>
+    <a href="{{nextLink}}">Página siguiente</a>
   {{/if}}
-</div>
+</nav>

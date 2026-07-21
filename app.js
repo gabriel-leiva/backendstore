@@ -29,13 +29,6 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
-app.get("/home", (req, res) => {
-  res.render("home", {
-    title: "Backend Store",
-    message: "Bienvenido a Backend Store"
-  });
-});
-
 io.on("connection", (socket) => {
   console.log("Nuevo cliente conectado:", socket.id);
 
